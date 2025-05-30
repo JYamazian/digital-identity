@@ -63,16 +63,13 @@
   
 <script setup lang="ts">
 import { useVCard } from '~/composables/useVCard'
+import { useCoverCompute } from '~/composables/coverCompute'
+
 const { generateVCard } = useVCard()
+const { backgroundStyle } = useCoverCompute()
+
 const config = useRuntimeConfig().public
-const parsedLinks = JSON.parse(String(config.links))
+
+const parsedLinks = JSON.parse(config.links)
 const layout = config.layout?.toLowerCase() === 'vertical' ? 'vertical' : 'horizontal'
-const backgroundStyle = computed(() => {
-  if (!config.imageCover) return null;
-  if (config.layout === 'vertical') return {
-    backgroundImage: `url('${config.imageCover}')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  };
-});
 </script>

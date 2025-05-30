@@ -22,21 +22,20 @@ export function useVCard() {
     if (config.profileImage) card.addPhotoURL(String(config.profileImage))
     if (config.profileDescription) card.addNote(String(config.profileDescription))
 
-    if (config.socialMedia) {
-      const socialMedia = JSON.parse(String(config.links)).reduce(
-        (acc: Record<string, string>, link: any) => {
-          if (link.socialMedia) {
-            acc[link.socialMedia] = link.url
-          }
-          return acc
-        },
-        {}
-      )
-
-      for (const [key, value] of Object.entries(socialMedia)) {
-        if (value) card.addSocial(key, String(value))
-      }
-    }
+    // if (config.socialMedia) {
+    //   const socialMedia = JSON.parse(String(config.links)).reduce(
+    //     (acc: Record<string, string>, link: any) => {
+    //       if (link.socialMedia) {
+    //         acc[link.socialMedia] = link.url
+    //       }
+    //       return acc
+    //     },
+    //     {}
+    //   )
+    //   for (const [key, value] of Object.entries(socialMedia)) {
+    //     if (value) card.addSocial(key, String(value))
+    //   }
+    // }
 
     const blob = new Blob([card.toString()], { type: 'text/vcard' })
     const url = URL.createObjectURL(blob)
