@@ -1,18 +1,22 @@
 <template>
     <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-neutral-900 p-6">
         <div :class="[
-            'flex w-full max-w-2xl bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden',
-            layout === 'vertical' ? 'flex-col max-w-3xl md:flew-row w-full' : 'flex-row',
-            ]">
-            <div class="flex-shrink-0 flex items-center justify-center w-full bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-indigo-900 dark:to-blue-800 p-8"
-                :style="backgroundStyle">
+            'flex w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden',
+            layout === 'vertical'
+                ? 'flex-col max-w-3xl'
+                : 'flex-col max-w-5xl md:flex-row md:max-w-5xl'
+        ]">
+            <div :class="[
+                'flex-shrink-0 flex items-center justify-center w-full bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-indigo-900 dark:to-blue-800 p-8',
+                layout === 'horizontal' ? 'md:w-82' : ''
+            ]" :style="backgroundStyle">
                 <img :src="config.profileImage" :alt="config.profileName"
                     class="w-36 h-36 rounded-full object-cover shadow-xl border-4 border-white dark:border-neutral-800" />
             </div>
 
             <div :class="[
-                'flex flex-grow min-w-5 p-8 text-gray-800 dark:text-white',
-                layout === 'vertical' ? 'flex-col w-full' : 'flex-col w-full md:max-w-[calc(100%-18rem)]',
+                'flex flex-grow min-w-5 p-8 text-gray-800 dark:text-white flex-col',
+                layout === 'horizontal' ? 'w-full' : 'w-full'
             ]">
 
                 <Head>
@@ -65,7 +69,7 @@ const parsedLinks = JSON.parse(String(config.links))
 const layout = config.layout?.toLowerCase() === 'vertical' ? 'vertical' : 'horizontal'
 const backgroundStyle = computed(() => {
   if (!config.imageCover) return null;
-  return {
+  if (config.layout === 'vertical') return {
     backgroundImage: `url('${config.imageCover}')`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
