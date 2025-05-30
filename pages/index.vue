@@ -7,9 +7,9 @@ import { defineAsyncComponent } from 'vue'
 import { useRuntimeConfig } from '#imports'
 
 const config = useRuntimeConfig().public
-const validTemplates = ['basic', 'fancy']
+const validTemplates = ['basic', 'modern']
 const templateChoiceRaw = (config.template || '').toLowerCase()
-const templateChoice = validTemplates.includes(templateChoiceRaw) ? templateChoiceRaw : 'fancy'
+const templateChoice = validTemplates.includes(templateChoiceRaw) ? templateChoiceRaw : 'modern'
 
 const currentComponent = defineAsyncComponent(() =>
     templateChoice === 'basic'

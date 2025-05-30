@@ -15,9 +15,11 @@ export default defineNuxtConfig({
       emailAddress: process.env.EMAIL_ADDRESS,
       phoneNumber: process.env.PHONE_NUMBER,
       companyName: process.env.COMPANY_NAME,
+      jobTitle: process.env.JOB_TITLE,
       address: process.env.ADDRESS,
-      template: process.env.TEMPLATE
-
+      template: process.env.TEMPLATE,
+      imageCover: process.env.IMAGE_COVER_BG,
+      layout: process.env.LAYOUT
       // theme: process.env.THEME_MODE // || 'auto', // default to 'auto' if not set
     }
   },

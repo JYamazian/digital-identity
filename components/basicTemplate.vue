@@ -9,81 +9,35 @@
         </Head>
 
         <img :src="config.profileImage as string" :alt="config.profileName as string"
-            class="w-32 h-32 rounded-full mb-4 shadow-lg object-cover" />
-        <h1 class="text-3xl font-bold mb-4 dark:text-neutral-200">{{ config.profileName }}</h1>
+            class="w-42 h-42 rounded-full mb-6 shadow-lg object-cover" />
+        <h1 class="text-4xl font-bold mb-6 dark:text-neutral-200">{{ config.profileName }}</h1>
 
-        <p v-if="config.profileDescription" class="text-gray-600 mb-4 max-w-xl dark:text-neutral-200">
+        <p v-if="config.profileDescription" class="text-md text-gray-600 mb-6 max-w-xl dark:text-neutral-200">
             {{ config.profileDescription }}
         </p>
 
-        <div class="flex flex-wrap justify-center gap-4 mt-6">
+        <div class="flex flex-wrap justify-center gap-4 mb-6 w-full max-w-lg">
             <a v-for="(link, i) in parsedLinks" :key="i" :href="link.url"
-                class="flex items-center justify-center gap-2 px-4 py-2 border rounded-full shadow hover:bg-gray-100 transition dark:text-neutral-200 dark:hover:bg-neutral-700"
+                class="flex items-center justify-center gap-2 px-3 py-3 border-2 border-gray-300 rounded-full shadow hover:bg-gray-100 transition dark:text-neutral-200 dark:hover:bg-neutral-700 dark:border-neutral-700 dark:shadow-[0_0_6px_rgba(255,255,255,0.08)]"
                 target="_blank" rel="noopener noreferrer">
                 <img :src="link.icon" :alt="link.label" class="w-6 h-6" />
-                <!-- {{ link.label }} -->
+                <!-- <span class="hidden sm:inline">{{ link.label }}</span> -->
             </a>
         </div>
         <button @click="generateVCard"
-            class="flex items-center justify-center gap-2 px-4 py-2 mt-6 border rounded-full shadow hover:bg-gray-100 transition dark:text-neutral-200 dark:hover:bg-neutral-700">
+            class="flex items-center justify-center gap-2 px-4 py-2 mb-6 border-2 border-gray-300 rounded-full shadow hover:bg-gray-100 transition dark:text-neutral-200 dark:hover:bg-neutral-700 dark:border-neutral-700">
             Contact (.vcf)
         </button>
 
-        <footer class="text-sm text-gray-500 mt-8 dark:text-neutral-200">
+        <footer class="text-sm text-gray-500 mt-10 dark:text-neutral-200">
             {{ config.copyright }}
         </footer>
     </div>
 </template>
 
 <script setup lang="ts">
-import { useRuntimeConfig } from 'nuxt/app'
-import VCard from 'vcard-creator'
-
+import { useVCard } from '~/composables/useVCard'
+const { generateVCard } = useVCard()
 const config = useRuntimeConfig().public
 const parsedLinks = JSON.parse(String(config.links))
-
-function generateVCard() {
-    const card = new VCard();
-
-    // Split PROFILE_NAME into first and last name
-    const nameParts = config.profileName.trim().split(/\s+/);
-    const firstName = nameParts.shift() || '';         // first word
-    const lastName = nameParts.join(' ') || '';        // the rest
-
-    // Add name only if at least one name part exists
-    if (firstName || lastName) {
-        card.addName(lastName, firstName);
-    }
-
-    // Conditionally add other fields only if provided
-    if (config.companyName) card.addCompany(String(config.companyName));
-    if (config.emailAddress) card.addEmail(String(config.emailAddress));
-    if (config.phoneNumber) card.addPhoneNumber(String(config.phoneNumber));
-    if (config.websiteUrl) card.addURL(String(config.websiteUrl));
-    if (config.address) card.addAddress(String(config.address));
-    if (config.profileImage) card.addLogo(String(config.profileImage));
-    if (config.profileDescription) card.addNote(String(config.profileDescription));
-    if (config.socialMedia) {
-        const socialMedia = JSON.parse(String(config.links)).reduce((acc: Record<string, string>, link: any) => {
-            if (link.socialMedia) {
-                acc[link.socialMedia] = link.url;
-            }
-            return acc;
-        }, {});
-        for (const [key, value] of Object.entries(socialMedia)) {
-            if (value) card.addSocial(key, String(value));
-        }
-    }
-
-    const blob = new Blob([card.toString()], { type: 'text/vcard' })
-    const url = URL.createObjectURL(blob)
-
-    const link = document.createElement('a')
-    link.href = url
-    link.download = 'JeanYamazian.vcf'
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    URL.revokeObjectURL(url)
-}
 </script>
