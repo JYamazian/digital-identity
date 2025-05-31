@@ -48,7 +48,7 @@ import { useLogger } from '~/composables/logger'
 const { generateVCard } = useVCard()
 const { backgroundStyle } = useCoverCompute()
 const log = useLogger('basicTemplate')
-log.debug('Background style:', backgroundStyle)
+
 const config = useRuntimeConfig().public
 const parsedLinks = Array.isArray(config.links)
   ? config.links.filter((link: any) => typeof link === 'object' && link !== null && 'icon' in link && 'label' in link && 'url' in link)
