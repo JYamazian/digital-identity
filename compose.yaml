@@ -11,3 +11,5 @@ services:
     pull_policy: if_not_present
     ports:
       - "3000:3000"
+    env_file:
+      - .env
