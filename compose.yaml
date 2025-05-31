@@ -2,9 +2,12 @@ version: '3.8'
 
 services:
   nuxt-app:
-    build: .
+  
+    build:
+      context: .
+      args:
+        - BUILD_VERSION=1.1.5
+        - BUILD_FLAVOR=dev
     pull_policy: if_not_present
     ports:
       - "3000:3000"
-    env_file:
-      - .env

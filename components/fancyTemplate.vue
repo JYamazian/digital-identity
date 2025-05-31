@@ -47,10 +47,13 @@
                     </a>
                 </div>
 
-                <button @click="generateVCard"
-                    class="mx-auto flex items-center mb-12 gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-full shadow-md transition"
-                    aria-label="Download contact as VCF">
-                    Contact (.vcf)
+                <button @click="generateVCard" class="mx-auto flex items-center mb-12 gap-2 px-6 py-3 
+                    bg-gradient-to-br from-blue-600 to-indigo-700 
+                    hover:from-indigo-700 hover:to-purple-700
+                    active:from-indigo-800 active:to-purple-800
+                    dark:from-indigo-900 dark:to-blue-800 
+                    text-white font-semibold rounded-full shadow-md transition" aria-label="Download contact as VCF">
+                    Contact Card
                 </button>
 
                 <footer class="mt-auto pt-10 text-sm text-gray-500 dark:text-neutral-400 text-center sm:text-right">
@@ -64,9 +67,11 @@
 <script setup lang="ts">
 import { useVCard } from '~/composables/useVCard'
 import { useCoverCompute } from '~/composables/coverCompute'
-
+import { useLogger } from '~/composables/logger'
 const { generateVCard } = useVCard()
 const config = useRuntimeConfig().public
+const log = useLogger('fancyTemplate')
+log.debug('Config:', config)
 
 const parsedLinks = Array.isArray(config.links)
     ? config.links.filter((link: any) => typeof link === 'object' && link !== null && 'icon' in link && 'label' in link && 'url' in link)

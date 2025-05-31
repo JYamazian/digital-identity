@@ -3,6 +3,15 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
+# Build Version Argument
+ARG BUILD_VERSION
+ARG BUILD_FLAVOR
+
+# Expose some build arguments as Env variables
+ENV BUILD_VERSION=$BUILD_VERSION
+ENV BUILD_FLAVOR=$BUILD_FLAVOR
+RUN echo "Version is: $BUILD_FLAVOR-$BUILD_VERSION"
+
 # Install dependencies and build app
 COPY package*.json ./
 RUN npm ci
