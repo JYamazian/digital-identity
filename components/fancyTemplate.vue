@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-neutral-900 p-6">
+    <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-neutral-900 p-8">
         <div :class="[
             'flex w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden',
             layout === 'vertical'
@@ -25,16 +25,16 @@
                     <Link rel="icon" type="image/png" :href="config.favicon" />
                 </Head>
 
-                <h1 class="text-4xl font-extrabold mb-2 leading-tight tracking-tight text-center">
+                <h1 class="text-4xl font-extrabold mb-8 leading-tight tracking-tight text-center">
                     {{ config.profileName }}
                 </h1>
 
                 <p v-if="config.profileDescription"
-                    class="text-gray-600 dark:text-gray-300 mb-6 w-full leading-relaxed text-center">
+                    class="text-gray-600 dark:text-gray-300 mb-12 w-full leading-relaxed text-center">
                     {{ config.profileDescription }}
                 </p>
 
-                <div class="flex flex-wrap gap-3 mb-8 w-full justify-center
+                <div class="flex flex-wrap gap-3 mb-12 w-full justify-center
                     md:grid md:grid-cols-2 md:gap-4 md:justify-center
                     lg:grid-cols-3
                     xl:grid-cols-5" aria-label="Social and external links">
@@ -48,7 +48,7 @@
                 </div>
 
                 <button @click="generateVCard"
-                    class="mx-auto flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-full shadow-md transition"
+                    class="mx-auto flex items-center mb-12 gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold rounded-full shadow-md transition"
                     aria-label="Download contact as VCF">
                     Contact (.vcf)
                 </button>
@@ -66,10 +66,16 @@ import { useVCard } from '~/composables/useVCard'
 import { useCoverCompute } from '~/composables/coverCompute'
 
 const { generateVCard } = useVCard()
-const { backgroundStyle } = useCoverCompute()
-
 const config = useRuntimeConfig().public
 
-const parsedLinks = JSON.parse(config.links)
+const parsedLinks = Array.isArray(config.links)
+    ? config.links.filter((link: any) => typeof link === 'object' && link !== null && 'icon' in link && 'label' in link && 'url' in link)
+    : []
 const layout = config.layout?.toLowerCase() === 'vertical' ? 'vertical' : 'horizontal'
+const backgroundStyle = computed(() => {
+    if (layout === 'vertical') {
+        return useCoverCompute().backgroundStyle.value
+    }
+    return {}
+})
 </script>
