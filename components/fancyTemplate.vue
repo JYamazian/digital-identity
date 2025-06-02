@@ -1,10 +1,13 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-neutral-900 p-8">
+    <div :class="[
+        'flex items-center justify-center bg-gray-50 dark:bg-neutral-900 p-8',
+        layout === 'vertical' ? 'h-[100dvh] overflow-hidden' : 'min-h-screen'
+    ]">
         <div :class="[
             'flex w-full bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl overflow-hidden',
             layout === 'vertical'
-                ? 'flex-col max-w-3xl'
-                : 'flex-col max-w-5xl md:flex-row md:max-w-5xl'
+                ? 'flex-col max-w-3xl gap-12'
+                : 'flex-col max-w-5xl md:flex-row md:max-w-5xl gap-12 md:gap-16'
         ]">
             <div :class="[
                 'flex-shrink-0 flex items-center justify-center w-full bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-indigo-900 dark:to-blue-800 p-8',
@@ -16,7 +19,8 @@
 
             <div :class="[
                 'flex flex-grow min-w-5 p-8 text-gray-800 dark:text-white flex-col',
-                layout === 'horizontal' ? 'w-full' : 'w-full'
+                layout === 'horizontal' ? 'w-full' : 'w-full',
+                'gap-12 flex flex-col'
             ]">
 
                 <Head>
@@ -25,16 +29,16 @@
                     <Link rel="icon" type="image/png" :href="config.favicon" />
                 </Head>
 
-                <h1 class="text-4xl font-extrabold mb-8 leading-tight tracking-tight text-center">
+                <h1 class="text-4xl font-extrabold leading-tight tracking-tight text-center">
                     {{ config.profileName }}
                 </h1>
 
                 <p v-if="config.profileDescription"
-                    class="text-gray-600 dark:text-gray-300 mb-12 w-full leading-relaxed text-center">
+                    class="text-gray-600 dark:text-gray-300 w-full leading-relaxed text-center">
                     {{ config.profileDescription }}
                 </p>
 
-                <div class="flex flex-wrap gap-3 mb-12 w-full justify-center
+                <div class="flex flex-wrap gap-3 w-full justify-center
                     md:grid md:grid-cols-2 md:gap-4 md:justify-center
                     lg:grid-cols-3
                     xl:grid-cols-5" aria-label="Social and external links">
@@ -47,7 +51,7 @@
                     </a>
                 </div>
 
-                <button @click="generateVCard" class="mx-auto flex items-center mb-12 gap-2 px-6 py-3 
+                <button @click="generateVCard" class="mx-auto flex items-center gap-2 px-6 py-3 
                     bg-gradient-to-br from-blue-600 to-indigo-700 
                     hover:from-indigo-700 hover:to-purple-700
                     active:from-indigo-800 active:to-purple-800
@@ -56,13 +60,14 @@
                     Contact Card
                 </button>
 
-                <footer class="mt-auto pt-10 text-sm text-gray-500 dark:text-neutral-400 text-center sm:text-right">
+                <footer class="pt-10 text-sm text-gray-500 dark:text-neutral-400 text-center sm:text-right">
                     {{ config.copyright }}
                 </footer>
             </div>
         </div>
     </div>
 </template>
+  
   
 <script setup lang="ts">
 import { useVCard } from '~/composables/useVCard'
