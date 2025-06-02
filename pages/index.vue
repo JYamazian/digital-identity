@@ -14,7 +14,7 @@ const templateChoice = validTemplates.includes(templateChoiceRaw) ? templateChoi
 const currentComponent = defineAsyncComponent(() =>
     templateChoice === 'basic'
         ? import('~/components/basicTemplate.vue')
-        : import('~/components/fancyTemplate.vue')
+        : import('~/components/modernTemplate.vue')
 )
 </script>
   
