@@ -1,5 +1,5 @@
 <template>
-    <component :is="currentComponent" />
+  <component :is="currentComponent" />
 </template>
 
 <script setup lang="ts">
@@ -12,9 +12,8 @@ const templateChoiceRaw = (config.template || '').toLowerCase()
 const templateChoice = validTemplates.includes(templateChoiceRaw) ? templateChoiceRaw : 'modern'
 
 const currentComponent = defineAsyncComponent(() =>
-    templateChoice === 'basic'
-        ? import('~/components/basicTemplate.vue')
-        : import('~/components/modernTemplate.vue')
+  templateChoice === 'basic'
+    ? import('~/components/basicTemplate.vue')
+    : import('~/components/modernTemplate.vue'),
 )
 </script>
-  

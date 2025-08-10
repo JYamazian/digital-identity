@@ -42,7 +42,7 @@ export function useVCard() {
 
     const link = document.createElement('a')
     link.href = url
-    link.download = `${String(config.profileName).replace(/\s+/g, '_').replace(/[^\w\-]/g, '')}.vcf`
+    link.download = `${String(config.profileName).replace(/\s+/g, '_').replace(/[^\w-]/g, '')}.vcf`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

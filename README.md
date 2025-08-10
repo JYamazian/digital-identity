@@ -5,6 +5,7 @@
 [![Vue](https://img.shields.io/badge/Vue-Ready-green?logo=vue.js&logoColor=white)](https://vuejs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-Ready-blue?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![ESLint](https://img.shields.io/badge/ESLint-Ready-purple?logo=eslint&logoColor=white)](https://eslint.org/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker&logoColor=white)](https://www.docker.com/)
 
 A customizable digital identity application built with Nuxt 3, allowing users to create personal profile pages with contact information and social links. The application supports multiple templates and can generate vCard files for easy contact sharing.
@@ -18,6 +19,7 @@ A customizable digital identity application built with Nuxt 3, allowing users to
 - 🐳 Docker containerization
 - ⚙️ Highly configurable via environment variables
 - 🔍 SEO optimized with meta tags
+- ✨ ESLint integration for code quality
 
 ## Quick Start
 
@@ -149,6 +151,31 @@ Build the application for production:
 npm run build
 ```
 
+### Code Quality & Linting
+
+The project includes ESLint configuration for maintaining code quality:
+
+```bash
+# Check for linting errors
+npm run lint
+
+# Automatically fix linting errors
+npm run lint:fix
+
+# Check linting with zero warnings (for CI)
+npm run lint:check
+```
+
+ESLint is configured with:
+
+- **@nuxt/eslint-config**: Official Nuxt.js ESLint configuration
+- **TypeScript support**: Full TypeScript linting
+- **Vue.js support**: Vue-specific linting rules
+- **Stylistic formatting**: Consistent code formatting (2 spaces, single quotes, no semicolons)
+- **Custom rules**: Project-specific rules for better code quality
+
+The configuration automatically formats your code and catches common errors. VS Code integration is included for real-time linting feedback.
+
 ### Preview Production Build
 
 Locally preview the production build:
@@ -161,10 +188,10 @@ npm run preview
 
 ### Using Docker Compose (Recommended)
 
-The project includes a `compose.yaml` file for easy deployment:
+The project includes a `docker-compose.yml` file for easy deployment:
 
 ```bash
-docker compose up -d
+docker-compose -f compose.yaml up -d --build
 ```
 
 This will:
@@ -195,28 +222,26 @@ The application supports multiple templates that can be selected via the `NUXT_P
 ## Project Structure
 
 ```text
-├── components/           # Vue components
+├── components/             # Vue components
 │   ├── basicTemplate.vue   # Basic template component
 │   └── modernTemplate.vue  # Modern template component
-├── composables/         # Vue composables
+├── composables/            # Vue composables
 │   ├── coverCompute.ts     # Cover image utilities
 │   ├── logger.ts           # Logging utilities
 │   └── useVCard.ts         # vCard generation
-├── pages/               # Nuxt pages
+├── pages/                  # Nuxt pages
 │   └── index.vue           # Main page with template selection
-├── public/              # Static assets
-├── server/              # Server-side code
-├── theme/               # Theme configuration
-├── app.vue              # Root Vue component
-├── nuxt.config.ts       # Nuxt configuration
-├── Dockerfile           # Docker configuration
-├── compose.yaml         # Docker Compose configuration
-└── package.json         # Dependencies and scripts
+├── public/                 # Static assets
+├── server/                 # Server-side code
+├── theme/                  # Theme configuration
+├── app.vue                 # Root Vue component
+├── nuxt.config.ts          # Nuxt configuration
+├── Dockerfile              # Docker configuration
+├── docker-compose.yml      # Docker Compose configuration
+└── package.json            # Dependencies and scripts
 ```
 
 ## Technologies Used
-
-
 
 - **Nuxt 3**: Vue.js framework with SSR support
 - **Vue 3**: Progressive JavaScript framework

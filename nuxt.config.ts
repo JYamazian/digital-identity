@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  modules: ['@nuxtjs/tailwindcss'],
   ssr: true,
+  devtools: { enabled: true },
   runtimeConfig: {
     public: {
       profileName: process.env.NUXT_PUBLIC_PROFILE_NAME,
@@ -26,9 +28,7 @@ export default defineNuxtConfig({
       buildFlavor: process.env.BUILD_FLAVOR || '',
       buildVersion: process.env.BUILD_VERSION || '',
       // theme: process.env.NUXT_PUBLIC_THEME_MODE // || 'auto', // default to 'auto' if not set
-    }
+    },
   },
   compatibilityDate: '2025-05-15',
-  devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss'],
 })

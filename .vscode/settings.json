@@ -1,0 +1,21 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue"
+    ],
+    "eslint.format.enable": true,
+    "eslint.workingDirectories": [
+        "."
+    ],
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "vue.codeActions.enabled": true,
+    "vue.complete.casing.tags": "kebab",
+    "vue.complete.casing.props": "camel"
+}

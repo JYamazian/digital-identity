@@ -25,34 +25,38 @@ export function useLogger(componentName = 'App') {
         timestamp,
         level: level.toUpperCase(),
         component: componentName,
-        message: args.map(arg => {
+        message: args.map((arg) => {
           try {
             return typeof arg === 'object'
               ? JSON.stringify(arg)
               : String(arg)
-          } catch {
+          }
+          catch {
             return '[Unserializable Object]'
           }
-        }).join(' ')
+        }).join(' '),
       }
 
       if (buildInfo) {
         entry.build = buildInfo
       }
 
+      // eslint-disable-next-line no-console
       console[level](JSON.stringify(entry))
-    } else {
+    }
+    else {
       // Plain text output with no colors
       const prefix = `[${timestamp}] [${componentName}] [${level.toUpperCase()}]`
       const buildStr = buildInfo ? `[Build: ${buildInfo}]` : ''
+      // eslint-disable-next-line no-console
       console[level](prefix, buildStr, ...args)
     }
   }
 
   return {
     debug: (...args: any[]) => log('debug', ...args),
-    info:  (...args: any[]) => log('info',  ...args),
-    warn:  (...args: any[]) => log('warn',  ...args),
-    error: (...args: any[]) => log('error', ...args)
+    info: (...args: any[]) => log('info', ...args),
+    warn: (...args: any[]) => log('warn', ...args),
+    error: (...args: any[]) => log('error', ...args),
   }
 }
