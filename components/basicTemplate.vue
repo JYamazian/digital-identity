@@ -64,7 +64,7 @@
       </button>
 
       <footer class="text-sm mt-8 sm:mt-8">
-        {{ config.copyright }}
+        {{ copyrightText }}
       </footer>
     </div>
   </div>
@@ -74,6 +74,10 @@
 import { useVCard } from '~/composables/useVCard'
 import { useCoverCompute } from '~/composables/coverCompute'
 import { useLogger } from '~/composables/logger'
+
+defineProps<{
+  copyrightText: string
+}>()
 
 const { generateVCard } = useVCard()
 const { backgroundStyle } = useCoverCompute()

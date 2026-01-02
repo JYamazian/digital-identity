@@ -98,7 +98,7 @@
         </button>
 
         <footer class="pt-10 text-sm text-gray-500 dark:text-neutral-400 text-center sm:text-right">
-          {{ config.copyright }}
+          {{ copyrightText }}
         </footer>
       </div>
     </div>
@@ -114,6 +114,10 @@ const { generateVCard } = useVCard()
 const config = useRuntimeConfig().public
 const log = useLogger('fancyTemplate')
 log.debug('Config:', config)
+
+defineProps<{
+  copyrightText: string
+}>()
 
 const parsedLinks = Array.isArray(config.links)
   ? config.links.filter((link: any) => typeof link === 'object' && link !== null && 'icon' in link && 'label' in link && 'url' in link)

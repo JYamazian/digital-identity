@@ -102,7 +102,8 @@ NUXT_PUBLIC_SITE_TITLE="Your Digital Identity"
 NUXT_PUBLIC_META_DESCRIPTION="A professional digital identity page"
 NUXT_PUBLIC_FAVICON="/favicon.ico"
 NUXT_PUBLIC_THEME_COLOR="#000000"
-NUXT_PUBLIC_COPYRIGHT="© 2025 Your Name. All rights reserved."
+# Use {year} for dynamic year. Defaults to "© {current year}" if not set.
+NUXT_PUBLIC_COPYRIGHT="© {year} Your Name. All rights reserved."
 
 # Template and layout
 NUXT_PUBLIC_TEMPLATE="modern"  # Options: "basic", "modern"

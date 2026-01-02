@@ -1,5 +1,8 @@
 <template>
-  <component :is="currentComponent" />
+  <component
+    :is="currentComponent"
+    :copyright-text="copyrightText"
+  />
 </template>
 
 <script setup lang="ts">
@@ -10,6 +13,11 @@ const config = useRuntimeConfig().public
 const validTemplates = ['basic', 'modern']
 const templateChoiceRaw = (config.template || '').toLowerCase()
 const templateChoice = validTemplates.includes(templateChoiceRaw) ? templateChoiceRaw : 'modern'
+const copyrightText = computed(() => {
+  const year = new Date().getFullYear().toString()
+  const copyright = config.copyright ? String(config.copyright) : `© ${year}`
+  return copyright.replace('{year}', year)
+})
 
 const currentComponent = defineAsyncComponent(() =>
   templateChoice === 'basic'
